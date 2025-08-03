@@ -12,7 +12,7 @@ function App() {
 
     })
   return (
-  <div className='bg-gray-500 h-screen w-full'>
+  <div className='bg-gray-100 h-screen w-full'>
      <div className="flex gap-2 items-center justify-center h-screen">
      <SideMenu/>
    {/* <Form  text={text} setText={setText}/>
