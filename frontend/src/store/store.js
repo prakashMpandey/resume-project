@@ -1,8 +1,8 @@
 import {configureStore} from "@reduxjs/toolkit"
-import personalReducer from "../features/personalSlice"
+import formReducer from "../features/formSlice"
 const store=configureStore({
     reducer:{
-        personalInfo:personalReducer
+        formInfo:formReducer
     }
 })
 

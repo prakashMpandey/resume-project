@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import Form from './components/Form'
 import './App.css'
-import Resume from './components/Resume'
 import SideMenu from './components/SideMenu'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import PersonalInfoForm from './components/PersonalInfoForm'
 function App() {
  
 
@@ -12,12 +13,17 @@ function App() {
 
     })
   return (
-  <div className='bg-gray-100 h-screen w-full'>
-     <div className="flex gap-2 items-center justify-center h-screen">
-     <SideMenu/>
-   {/* <Form  text={text} setText={setText}/>
-      <Resume text={text}/> */}
+  <div className='bg-gray-100  '>
+
+  <Header/>
+     <div className="flex flex-row gap-4 h-[calc(100vh-30px)] my-1   lg:my-5 xl:my-8">
+     <SideMenu />
+  <div className='p-2 '>
+    <PersonalInfoForm/>
+  </div>
+  
      </div>
+  <Footer/>
   
   </div>
      
