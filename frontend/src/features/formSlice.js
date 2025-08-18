@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState={
    personalInfo:{
         fullName: "",
+        headline: "",
         email   : "",
         gender  : "",
-        linkedin: "",
+        linkedIn: "",
         github  : "",
         nationality: "",
-        address : "",
+        location : "",
         phone   : "",
-        headline: "",
         dob     : ""
    },
    education:[],
