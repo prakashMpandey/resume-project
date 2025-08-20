@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 export default function Preview() {
 
     const personalInfo=useSelector((state)=> state.formInfo.personalInfo);
-    console.log(personalInfo)
+   
   return (
     <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-8">
       {/* Header */}
