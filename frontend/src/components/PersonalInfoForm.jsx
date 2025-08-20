@@ -2,7 +2,7 @@ import React, { use } from 'react'
 import {User} from "lucide-react"
 import {useSelector,useDispatch} from 'react-redux'
 import { addPersonalInfo } from '../features/formSlice';
-
+import Input from './Input';
 const PersonalInfoForm = () => {
 
 const dispatch=useDispatch();
@@ -20,39 +20,21 @@ const handlePersonalInfoChange=(e)=>{
       </div>
       <form action="">
         <div className='flex flex-col space-y-4 mt-2 p-2 '>
-          <div className=" flex flex-col gap-2">
-              <label className='text-md font-medium'>Name</label>
-            <input type="text" name='fullName' onChange={handlePersonalInfoChange} className='border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500' placeholder='Enter your Full name' />
-          </div>
-          <div className="flex flex-col gap-2">
-              <label className='text-md font-medium'>Professional Headline</label>
-            <input type="text" name='headline' onChange={handlePersonalInfoChange} className='border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500' placeholder='Enter your Full name' />
-          </div>  
+       
+       <Input label={"full name"} name="fullName" type="text" onChange={handlePersonalInfoChange} placeholder={"enter full name"}/>
+        <Input label={"Professional Headline"} name="headline" type="text" onChange={handlePersonalInfoChange} placeholder={"enter headline"}/>
         </div>
         <div className='grid grid-cols-2 gap-4 p-2 mt-4'>
-             <div className="flex flex-col gap-2">
-              <label className='text-md font-medium'>Email</label>
-            <input type="Email" name='email' onChange={handlePersonalInfoChange} className='border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500' placeholder='Enter your Full name' />
-          </div>
+             
+             <Input label={"email"} type='email' name={"email"} onChange={handlePersonalInfoChange} placeholder={"enter email address"}/>
+             <Input label={"phone number"} type='tel' name={"phoneNumber"} onChange={handlePersonalInfoChange} placeholder={"enter phone number "}/>
 
-          <div className="flex flex-col gap-2">
-              <label className='text-md font-medium'>Phone number</label>
-            <input type="tel" name='phone' onChange={handlePersonalInfoChange} className='border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500' placeholder='Enter your Full name' />
-          </div>
-          <div className="flex flex-col gap-2">
-              <label className='text-md font-medium'>Location</label>
-            <input type="tel"  name="location" onChange={handlePersonalInfoChange} className='border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500' placeholder='Enter your Full name' />
-          </div>
+         
+          <Input label={"location"} type='text' name={"location"} onChange={handlePersonalInfoChange} placeholder={"enter location"}/>
+          <Input label={"LinkedIn"} type='text' name={"linkedIn"} onChange={handlePersonalInfoChange} placeholder={"enter LinkedIn profile"}/>
+          <Input label={"GitHub"} type='text' name={"github"} onChange={handlePersonalInfoChange} placeholder={"enter GitHub profile"}/>  
 
-          <div className="flex flex-col gap-2">
-              <label className='text-md font-medium'>LinkedIn</label>
-            <input type="text" name="linkedIn" onChange={handlePersonalInfoChange} className='border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500' placeholder='Enter your Full name' />
-          </div>
-
-          <div className="flex flex-col gap-2">
-              <label className='text-md font-medium'>GitHub</label>
-            <input type="text" name="github" onChange={handlePersonalInfoChange} className='border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500' placeholder='Enter your Full name' />
-          </div>
+  
           
 
         </div>

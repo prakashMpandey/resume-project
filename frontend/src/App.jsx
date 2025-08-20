@@ -21,8 +21,8 @@ function App() {
      <div className="flex items-center flex-row gap-4 h-[calc(100vh-30px)] my-1   lg:my-5 xl:my-8">
      <SideMenu />
   <div className='  lg:min-w-xl max-w-lg '>
-    {/* <PersonalInfoForm/> */}
-    <Education/>
+    <PersonalInfoForm/>
+  
   </div>
   <div className='p-2 hidden md:block  overflow-auto h-[calc(100vh-30px)]'>
     <Preview/>
