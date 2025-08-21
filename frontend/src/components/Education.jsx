@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addEduInfo } from "../features/formSlice";
 import Input from "./Input";
-function Education() {
+function Education({entries, saveEntry}) {
   const [educationData, setEducationData] = useState({
     degree: "",
     school: "",
@@ -11,6 +11,8 @@ function Education() {
     location: "",
     description: "",
   });
+
+  console.log("education", entries);
 
   const dispatch = useDispatch();
 
@@ -27,13 +29,8 @@ function Education() {
 
 
   };
-
-  return (
-    <div className=" bg-white rounded-md shadow-md p-4">
-      <div>
-        <h1 className="text-gray-900 font-bold text-2xl">Education</h1>
-      </div>
-      <div>
+  const educationForm=()=>{
+    <div>
         <div className="flex flex-col gap-4 mt-4">
           <Input
             label="degree"
@@ -88,6 +85,32 @@ function Education() {
           </div>
         </div>
       </div>
+  }
+
+  return (
+    <div className=" bg-white rounded-md shadow-md p-4">
+      <div>
+        <h1 className="text-gray-900 font-bold text-2xl">Education</h1>
+      </div>
+      
+      <div className="flex flex-col gap-4 mt-4">
+      {
+        entries.map((entry,index)=>(
+          <div key={index} className="border border-gray-400 p-2 rounded-md flex justify-between items-center">
+            <div>
+              <h2 className="text-lg font-semibold">{entry.degree}</h2>
+            <p className="text-gray-500">{entry.school}</p>
+            </div>
+            <div className="">
+            <button className="bg-red-400 p-2 text-white">Edit</button>
+
+            </div>
+          </div>
+        ))
+      }
+      </div>
+
+      
     </div>
   );
 }

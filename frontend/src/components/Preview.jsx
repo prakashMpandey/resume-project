@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function Preview() {
+export default function Preview({personalInfo}) {
 
-    const personalInfo=useSelector((state)=> state.formInfo.personalInfo);
+  
    
   return (
     <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-8">
@@ -11,7 +11,7 @@ export default function Preview() {
       <div className="text-center border-b pb-4 mb-6">
         <h1 className="text-3xl capitalize font-bold text-gray-800">{personalInfo.fullName}</h1>
         <p className="text-gray-600 capitalize">{personalInfo.headline}</p>
-        <p className="text-sm text-gray-500 mt-2">📍 {personalInfo.location}| ✉️ {personalInfo.email}| 📞{personalInfo.phone} | 🔗{personalInfo.linkedIn} |🔗 {personalInfo.github}</p>
+        <p className="text-sm text-gray-500 mt-2">📍 {personalInfo.location}| ✉️ {personalInfo.email}| 📞{personalInfo.phoneNumber} | 🔗{personalInfo.linkedIn} |🔗 {personalInfo.github}</p>
       </div>
 
       {/* Summary */}
