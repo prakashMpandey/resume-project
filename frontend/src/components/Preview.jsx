@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function Preview({personalInfo}) {
+export default function Preview({personalInfo,education}) {
 
   
+  console.log(education)
    
   return (
     <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-8">
@@ -72,11 +73,18 @@ export default function Preview({personalInfo}) {
       </div>
 
       {/* Education */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 border-b pb-1 mb-3">Education</h2>
-        <p className="text-gray-700 font-medium">Bachelor of Computer Applications (BCA)</p>
-        <p className="text-gray-600 text-sm">XYZ University, 2021 - 2025</p>
+       <h2 className="text-xl font-semibold text-gray-700 border-b pb-1 mb-3">Education</h2>
+      {
+        
+        education.map((edu, index) => (
+          <div key={index} className="mb-6">
+          <div className="mb-6">
+       
+        <p className="text-gray-700 font-medium">{edu.degree}</p>
+        <p className="text-gray-600 text-sm">{edu.school},{edu.startDate}-{edu.endDate}</p>
       </div>
+          </div>))
+      }
 
       {/* Certifications */}
       <div>
