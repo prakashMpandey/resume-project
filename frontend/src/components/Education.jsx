@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Pen, Plus, Save } from 'lucide-react';
 import Input from "./Input";
 
-function Education({ entries, saveEntry, editEntry }) {
+function Education({ entries,setEntries }) {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [editIndex, setEditIndex] = useState(-1);
+  
   const [educationData, setEducationData] = useState({
     degree: "",
     school: "",
@@ -40,9 +41,9 @@ function Education({ entries, saveEntry, editEntry }) {
       const updatedEntries = entries.map((entry, index) =>
         index === editIndex ? educationData : entry
       );
-      editEntry(updatedEntries);
+      setEntries(updatedEntries);
     } else {
-      saveEntry(educationData);
+      setEntries(prev => [educationData, ...prev]);
     }
     setEducationData({
       degree: "",
@@ -148,7 +149,7 @@ function Education({ entries, saveEntry, editEntry }) {
                 <h2 className="text-lg font-semibold text-blue-800">{entry.degree}</h2>
                 <p className="text-gray-700">{entry.school}</p>
                 <p className="text-sm text-gray-500">
-                  {entry.startDate} - {entry.endDate} | {entry.location}
+                  {new Date(entry.startDate).getFullYear()} -{new Date(entry.endDate).getFullYear()} | {entry.location}
                 </p>
                
               </div>

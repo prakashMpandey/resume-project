@@ -54,7 +54,7 @@ function ResumeCreationDashboard() {
 step === 1 && <PersonalInfoForm data={personalInfo} onChange={handlePersonalInfoChange} />
 
 }
-{step === 2 && <Education  entries={education} saveEntry={addEducationEntry} editEntry={editEducationEntry} />}
+{step === 2 && <Education  entries={education} setEntries={setEducation} saveEntry={addEducationEntry} editEntry={editEducationEntry} />}
     
    <div className='flex justify-end mt-1  p-2'>
         <button onClick={()=>setStep((prev)=>prev+1)}  className='bg-red-500 text-white px-4 py-2   rounded-md mt-4 hover:bg-blue-600 transition-colors duration-300'>
