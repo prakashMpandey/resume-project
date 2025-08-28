@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Pen, Plus, Save } from 'lucide-react';
-import Input from "./Input";
+import Input from "../Input";
 
 function Education({ entries,setEntries }) {
   const [isFormVisible, setIsFormVisible] = useState(false);

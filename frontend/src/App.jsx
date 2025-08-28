@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import ResumeCreationDashboard from './pages/ResumeCreationDashboard'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import Header from './components/partials/Header'
+import Footer from './components/partials/Footer'
 
 function App() {
  

@@ -82,6 +82,7 @@ export default function Preview({personalInfo,education}) {
        
         <p className="text-gray-700 font-medium">{edu.degree}</p>
         <p className="text-gray-600 text-sm">{edu.school},{edu.startDate}-{edu.endDate}</p>
+        <p></p>
       </div>
           </div>))
       }
