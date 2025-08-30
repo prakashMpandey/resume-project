@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import Experience from '../components/forms/Experience'
 import Projects from '../components/forms/Projects'
 import SkillForm from '../components/forms/SkillForm'
-
+import Certificates from '../components/forms/Certificates'
 function ResumeCreationDashboard() {
 
     const [step,setStep] = useState(1);
@@ -46,6 +46,7 @@ function ResumeCreationDashboard() {
 {step === 3 && <Experience  entries={experience} setEntries={setExperience}  />}
 {step === 4 && <Projects  entries={projects} setEntries={setProjects}  />}
 {step === 5 && <SkillForm  entries={skills} setEntries={setSkills}  />}
+{step === 6 && <Certificates  entries={certificates} setEntries={setCertificates}  />}
     
    <div className='flex justify-end mt-1  p-2'>
         <button onClick={()=>setStep((prev)=>prev+1)}  className='bg-red-500 text-white px-4 py-2   rounded-md mt-4 hover:bg-blue-600 transition-colors duration-300'>

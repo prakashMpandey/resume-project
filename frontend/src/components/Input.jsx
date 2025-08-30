@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Input({label,value,onChange,placeholder,name,type='text',className=[]},ref) {
+const Input=({label,value,onChange,placeholder,name,type='text',className=[]},ref) =>{
   return (
     <div className='flex flex-col gap-2'>
     {label &&  <label htmlFor="" className=' capitalize text-md font-medium'>{label}</label>}
@@ -17,4 +17,4 @@ function Input({label,value,onChange,placeholder,name,type='text',className=[]},
   )
 }
 
-export default Input
+export default Input;
