@@ -54,7 +54,7 @@ function Course({entries,setEntries}) {
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 max-w-2xl mx-auto">
-      <h1 className="text-blue-700 font-bold text-3xl mb-6 text-center">Education</h1>
+      <h1 className="text-blue-700 font-bold text-3xl mb-6 text-center">Courses</h1>
       {isFormVisible ? (
         <div className="bg-blue-50 rounded-xl p-6 shadow-inner">
           <div className="flex flex-col gap-4">

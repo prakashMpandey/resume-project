@@ -9,6 +9,7 @@ import Experience from '../components/forms/Experience'
 import Projects from '../components/forms/Projects'
 import SkillForm from '../components/forms/SkillForm'
 import Certificates from '../components/forms/Certificates'
+import Course from '../components/forms/Course'
 function ResumeCreationDashboard() {
 
     const [step,setStep] = useState(1);
@@ -26,6 +27,7 @@ function ResumeCreationDashboard() {
     const [projects, setProjects] = useState([]);
     const [skills, setSkills] = useState([]);
     const [certificates, setCertificates] = useState([]);
+    const [courses, setCourses] = useState([]);
 
     const handlePersonalInfoChange = (e) => {
         const { name, value } = e.target;
@@ -47,6 +49,7 @@ function ResumeCreationDashboard() {
 {step === 4 && <Projects  entries={projects} setEntries={setProjects}  />}
 {step === 5 && <SkillForm  entries={skills} setEntries={setSkills}  />}
 {step === 6 && <Certificates  entries={certificates} setEntries={setCertificates}  />}
+{step === 7 && <Course  entries={courses} setEntries={setCourses}  />}
     
    <div className='flex justify-end mt-1  p-2'>
         <button onClick={()=>setStep((prev)=>prev+1)}  className='bg-red-500 text-white px-4 py-2   rounded-md mt-4 hover:bg-blue-600 transition-colors duration-300'>
