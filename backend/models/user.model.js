@@ -15,11 +15,13 @@ const userSchema=new Schema({
     },
     password:{
         type:String,
-        required:true
+        required:true,
+        select:false
     },
     refreshToken:{
         type:String,
-        default:null
+        default:null,
+        select:false
     }
 },{
     timestamps:true,

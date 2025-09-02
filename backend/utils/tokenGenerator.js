@@ -26,18 +26,21 @@ const user=User.findById(userId);
 
 if(!user){
     console.log("user not found");
-    return;
+    return ;
 }
-const accessToken=jwt.sign({
+const refreshToken=jwt.sign({
     email:user.email,
     username:user.username
 },process.env.REFRESH_TOKEN_SECRET,{expiresIn:process.env.REFRESH_TOKEN_EXPIRY})
 
-if(!accessToken){
+if(!refreshToken){
     console.log("access token not generated")
-    return;
+    return ;
 }
-return accessToken;
+user.refreshToken=refreshToken;
+await user.save({validateBeforeSave:false});
+return refreshToken;
+
 }
 
 export { createAccessToken,createRefreshToken};
