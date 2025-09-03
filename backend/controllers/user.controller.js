@@ -7,10 +7,10 @@ import {createAccessToken,createRefreshToken} from "../utils/tokenGenerator.js"
 const registerUser=async(req,res)=>{
     const {email,username,password}=req.body;
 
-    if([email,username,password].some((field)=>(
-        field?.trim()===''
-    ))){   
-        return res.json(new ApiResponse(400,null,"all fields are required"))
+    console.log(email,username,password)
+    
+    if([email,username,password].some((field)=>(field.trim()===''))){
+        return res.status(400).json(new ApiResponse(400,null,"all fields are required"))
     }
 
     const existingUser=await User.findOne({$or:[{username},{email}]})
@@ -25,8 +25,8 @@ const registerUser=async(req,res)=>{
     if(!createdUser){
         return res.status(500).json(new ApiResponse(500,null,"user cannot be created"))
     }
-    const accessToken=createAccessToken(createdUser._id);
-    const refreshToken=createRefreshToken(createdUser._id);
+    const accessToken=await createAccessToken(createdUser._id);
+    const refreshToken=await createRefreshToken(createdUser._id);
 
     if(!accessToken){
         return res.status(500).json(new ApiResponse(500,null,"something went wrong"))
@@ -35,13 +35,15 @@ const registerUser=async(req,res)=>{
         return res.json(new ApiResponse(500,null,"something went wrong"))
     }
 
+    console.log(accessToken,refreshToken)
     const options={
         httpOnly:true,
         secure:true,
-        sameSite:none,
         maxAge:1*60*60*1000
 
     }
+    createdUser.password=undefined
+    createdUser.refreshToken=undefined
 
     res.cookie("accessToken",accessToken,{options})
     res.cookie("refreshToken",refreshToken,{options})
@@ -56,19 +58,19 @@ const loginUser=async(req,res)=>{
         return res.status(400).json(new ApiResponse(400,null,"all fields are required"))
     }
 
-    const user=await User.findOne({$or:[{input},{input}]}).select("+password");
+    const user=await User.findOne({$or:[{email:input},{username:input}]}).select("+password");
 
 if(!user){
     return res.status(400).json(new ApiResponse(400,null,"no user found"))
 }
 
-const isPasswordCorrect=await User.isValidPassword(password,user.password);
+const isPasswordCorrect=await user.isValidPassword(password,user.password);
 
 if(!isPasswordCorrect){
     return res.status(400).json(new ApiResponse(400,null,"invalid password"));
 }
-const accessToken=createAccessToken(user._id);
-const refreshToken=createRefreshToken(user._id);
+const accessToken=await createAccessToken(user._id);
+const refreshToken=await createRefreshToken(user._id);
 
 if(!accessToken){
     console.log("access token not generated");
@@ -82,7 +84,6 @@ if(!refreshToken){
 const options={
         httpOnly:true,
         secure:true,
-        sameSite:none,
         maxAge:1*60*60*1000
 
     }
@@ -92,7 +93,7 @@ user.refreshToken=undefined
 
 res.cookie("accessToken",accessToken,{options})
     res.cookie("refreshToken",refreshToken,{options})
-    return res.json(new ApiResponse(200,user,"user created successfully"))
+    return res.json(new ApiResponse(200,user,"user logged in successfully"))
 
 }
 

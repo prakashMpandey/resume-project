@@ -18,7 +18,7 @@ const resumeSchema = new Schema({
       type: String,
       trim: true,
     },
-    phoneNumber: {
+    mobileNo: {
       type: String,
     },
     location: {
@@ -83,6 +83,9 @@ const resumeSchema = new Schema({
       link: { type: String, trim: true },
     },
   ],
+  template:{
+    type:"String"
+  }
 });
 
 export const Resume=model("Resume",resumeSchema);

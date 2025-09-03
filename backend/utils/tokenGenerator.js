@@ -1,8 +1,8 @@
-import User from "../models/user.model"
+import User from "../models/user.model.js"
 import jwt from "jsonwebtoken"
 
 const createAccessToken=async function(userId){
-const user=User.findById(userId);
+const user=await User.findById(userId);
 
 if(!user){
     console.log("user not found");
@@ -18,17 +18,20 @@ if(!accessToken){
     console.log("access token not generated")
     return;
 }
+
+console.log(accessToken)
 return accessToken;
 }
 
 const createRefreshToken=async function(userId){
-const user=User.findById(userId);
+const user=await User.findById(userId);
 
 if(!user){
     console.log("user not found");
     return ;
 }
 const refreshToken=jwt.sign({
+    _id:user._id,
     email:user.email,
     username:user.username
 },process.env.REFRESH_TOKEN_SECRET,{expiresIn:process.env.REFRESH_TOKEN_EXPIRY})
@@ -38,6 +41,7 @@ if(!refreshToken){
     return ;
 }
 user.refreshToken=refreshToken;
+console.log(refreshToken)
 await user.save({validateBeforeSave:false});
 return refreshToken;
 
