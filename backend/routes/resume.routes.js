@@ -1,9 +1,14 @@
 import {Router} from "express"
-import { createResume } from "../controllers/resume.controller.js"
+import { createResume, deleteResume, getResume, getUserAllResume, updateResume } from "../controllers/resume.controller.js"
 import verifyJwt from "../middlewares/authentication.js"
 
 const router=Router();
 
-router.post("/create-resume",verifyJwt,createResume);
+router.post("/",verifyJwt,createResume);
+router.put("/:resumeId",verifyJwt,updateResume);
+router.get("/",verifyJwt,getUserAllResume);
+router.get("/:resumeId",verifyJwt,getResume);
+router.delete("/:resumeId",verifyJwt,deleteResume);
+
 
 export default router;
