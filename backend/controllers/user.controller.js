@@ -51,14 +51,14 @@ const registerUser=async(req,res)=>{
 }
 
 const loginUser=async(req,res)=>{
-    const {input,password}=req.body;
+    const {textData,password}=req.body;
 
-    if(!input || !password){
+    if(!textData || !password){
 
         return res.status(400).json(new ApiResponse(400,null,"all fields are required"))
     }
 
-    const user=await User.findOne({$or:[{email:input},{username:input}]}).select("+password");
+    const user=await User.findOne({$or:[{email:textData},{username:textData}]}).select("+password");
 
 if(!user){
     return res.status(400).json(new ApiResponse(400,null,"no user found"))

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input=({label,value,onChange,placeholder,name,type='text',className=[]},ref) =>{
+const Input=({label,value,onChange,placeholder,name,type='text',className=[] ,...props}) =>{
   return (
     <div className='flex flex-col gap-2'>
     {label &&  <label htmlFor="" className=' capitalize text-md font-medium'>{label}</label>}
@@ -11,6 +11,7 @@ const Input=({label,value,onChange,placeholder,name,type='text',className=[]},re
       } 
         placeholder={placeholder}
         name={name}
+        {...props}
       />
 
     </div>
