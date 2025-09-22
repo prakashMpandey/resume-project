@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.config.js";
 import cors from "cors"
+
 dotenv.config();
 
 
@@ -29,7 +30,10 @@ connectDB()
 
 import userRouter from './routes/user.routes.js'
 import resumeRouter from "./routes/resume.routes.js"
+import templateRouter from "./routes/template.routes.js"
+
 app.use("/api/v1/users",userRouter);
+app.use("/api/v1/templates",templateRouter)
 app.use("/api/v1/resumes",resumeRouter);
 
 

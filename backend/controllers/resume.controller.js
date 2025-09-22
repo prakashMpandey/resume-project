@@ -1,20 +1,25 @@
 import {Resume} from "../models/resume.model.js"
 import ApiResponse from "../utils/ApiResponse.utils.js"
-
+import Template from "../models/template.model.js"
 const createResume=async(req,res)=>{
    try {
-     const {template}=req.body;
+     const {templateId}=req.body;
      const userId=req.user?._id;
  
      if(!userId){
          return res.status(401).json(new ApiResponse(401,null,"unauthorized request"))
      }
  
-     if(!template){
+     if(!templateId){
          return res.status(400).json(new ApiResponse(400,null,"template is required"))
      }
  
  
+     const isTemplateExists=await Template.findById(templateId);
+
+     if(!isTemplateExists){
+        throw new Error("template does not exists")
+     }
     
  
      const createdResume=await Resume.create({
@@ -34,7 +39,7 @@ const createResume=async(req,res)=>{
          skills:[],
          certificates:[],
          projects:[],
-         template:template
+         template:templateId
      })
  
         if(!createdResume){

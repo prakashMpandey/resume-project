@@ -1,5 +1,6 @@
 import axios from "axios"
 
+
 const api=axios.create({
     baseURL:import.meta.env.VITE_API_BASE_URL,
     headers:{
@@ -9,21 +10,16 @@ const api=axios.create({
 
 })
 
-const loginUser=async(userData)=>{
-    // const {username,password}=userData;
-    console.log(userData)
+const SIGN_IN_API="/users/signin"
+const SIGN_UP_API="/users/signup"
+const LOG_OUT_API="/users/logout"
+const GET_USER_API="/users/user"
+export const ADD_RESUME='/resumes'
 
-    const {data}=await api.post("/users/signin",userData)
-    return data;
-    
-}
-const signUpUser=async(userData)=>{
-    // const {username,password}=userData;
-    console.log(userData)
 
-    const {data}=await api.post("/users/signup",userData)
 
-    return data;
-}
 
-export {loginUser,signUpUser}
+
+
+
+export {SIGN_IN_API,SIGN_UP_API,LOG_OUT_API,api,GET_USER_API}

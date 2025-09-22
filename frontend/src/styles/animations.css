@@ -1,0 +1,20 @@
+
+@theme {
+  --animate-underline: lineAnimation 3s ease-in-out infinite;
+  @keyframes lineAnimation {
+     0% {
+        width:100%;
+        left:0;
+
+    }
+    50%{
+        width:25%;
+        
+    }
+    100%{
+        width:100%;
+    
+    }
+  }
+}
+

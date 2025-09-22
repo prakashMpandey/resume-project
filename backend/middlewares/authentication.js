@@ -7,7 +7,7 @@ import ApiResponse from "../utils/ApiResponse.utils.js";
         const token=req.cookies?.accessToken;
     
         if(!token){
-            return res.json(new ApiResponse(401,null,"access denied"));
+            return res.status(401).json(new ApiResponse(401,null,"access denied"));
             
         }
        

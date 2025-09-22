@@ -84,7 +84,10 @@ const resumeSchema = new Schema({
     },
   ],
   template:{
-    type:"String"
+    type:Schema.Types.ObjectId,
+    ref:'Template',
+    required:true,
+
   }
 });
 

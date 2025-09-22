@@ -3,8 +3,10 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import Input from "./Input";
 import PasswordInput from "./PasswordInput";
-import { signUpUser } from "../utils/ApiList";
 import { toast } from "react-hot-toast";
+import { useSelector,useDispatch } from "react-redux";
+import { signup } from "../features/AuthSlice";
+import { lightGreen } from "@mui/material/colors";
 function SignUpForm({ closeAuthModal, switchAuthType }) {
   const [signUpData, setSignUpData] = useState({
     email: "",
@@ -13,38 +15,41 @@ function SignUpForm({ closeAuthModal, switchAuthType }) {
   });
 
 
+  const dispatch=useDispatch()
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSignUpData({ ...signUpData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
+  const handleSubmit=async(e)=>{
+        e.preventDefault();
+        try {
+  
+          const response= await  dispatch(signup(signUpData));
+          console.log("response :",response);
+          
+          if(response.meta.requestStatus==='fulfilled'){
+            toast.success("signed up successfully")
+            closeAuthModal()
 
-      await toast.promise(
-        signUpUser(signUpData).then((res) => {
-          if (!res.success) {
-            throw new Error(res.message);
           }
-          return res;
-        }),
-        {
-          loading: "loading...",
-          success: (res) => res.message,
+          else{
+            toast.error(response?.payload || "sign up failed")
+          }
+          
+        } catch (error) {
+          console.log(error)
+          toast.error(error?.message || "sign up failed")
         }
-      );
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
-      setSignUpData({
-        username: "",
-        email: "",
-        password: "",
-      });
-      closeAuthModal();
-    }
-  };
+        finally{
+          setSignUpData({
+            email:"",
+            username:"",
+            password:""
+          })
+        }
+       
+      }
   return (
     <div className="bg-white  relative p-8 rounded-lg shadow-lg min-w-[320px]">
       <div>

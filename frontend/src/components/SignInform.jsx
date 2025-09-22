@@ -3,15 +3,22 @@ import React from 'react'
 import {useState} from "react"
 import PasswordInput from './PasswordInput';
 import { X } from 'lucide-react';
-import { loginUser } from '../utils/ApiList.js';
+
 import toast from 'react-hot-toast';
+import {useSelector,useDispatch} from "react-redux"
+import { signin } from '../features/AuthSlice.js';
+import { useNavigate } from 'react-router';
 
 function SignInform({closeAuthModal , switchAuthType}) {
 
-    const [loginData,setLoginData]=React.useState({
+  const navigate=useNavigate()
+    const [loginData,setLoginData]=useState({
         textData:'',
         password:''
     })
+
+    const dispatch=useDispatch()
+
 
     const handleChange=(e)=>{
         const {name,value}=e.target;
@@ -20,32 +27,33 @@ function SignInform({closeAuthModal , switchAuthType}) {
     }
 
     const handleSubmit=async(e)=>{
+      e.preventDefault();
       try {
-        e.preventDefault()
 
-        console.log("loginData:",loginData)
-     const response = await toast.promise(loginUser(loginData), {
-  loading: 'Logging in...',
-  success: (res) => res.message,
-  error: 'Login failed. Please try again.',
-});
-
-  
-  } catch (error) {
-        console.log(error)
+        const response=await  dispatch(signin(loginData));
+        console.log("response :",response);
         
+        if(response.meta.requestStatus==='fulfilled'){
+          toast.success("signed in successfully")
+
+          closeAuthModal()
+          navigate("/home")
+
+        }
+        else{
+          toast.error(response?.payload || "sign in failed")
+        }
+        
+      } catch (error) {
+        toast.error(error?.message || "sign in failed")
       }
       finally{
         setLoginData({
           textData:"",
           password:""
         })
-        closeAuthModal()
-
-
       }
-
-      
+     
     }
   return (
     <div className="bg-white  relative p-8 rounded-lg shadow-lg min-w-[320px] transition-all linear duration-150 delay-50" >

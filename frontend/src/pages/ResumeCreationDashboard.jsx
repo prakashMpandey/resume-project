@@ -5,12 +5,35 @@ import Preview from '../components/preview/Preview'
 import Education from '../components/forms/Education'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { api } from '../utils/ApiList'
 import Experience from '../components/forms/Experience'
 import Projects from '../components/forms/Projects'
 import SkillForm from '../components/forms/SkillForm'
 import Certificates from '../components/forms/Certificates'
 import Course from '../components/forms/Course'
+import { useLocation,useParams } from 'react-router'
+
+
 function ResumeCreationDashboard() {
+
+  const params=new useParams();
+  const resumeId=params.id;
+  
+  const [resume,setResume]=useState(null);
+
+
+  const fetchResumeData=async()=>{
+    const response=await api.get(`/resumes/${resumeId}`);
+    const {data}=response.data;
+    console.log("resume data :",response.data.data)
+    setResume(data);
+
+  }
+  useEffect(() => {
+    fetchResumeData()
+  }, [resumeId])
+  
+
 
     const [step,setStep] = useState(1);
     const [personalInfo,setPersonalInfo] = useState({
@@ -58,7 +81,7 @@ function ResumeCreationDashboard() {
       </div>
   </div>
   <div className='p-2 hidden md:block  overflow-auto h-[calc(100vh-30px)]'>
-    <Preview personalInfo={personalInfo} education={education}/>
+   {resume && <Preview resume={resume}/>} 
     
   </div>
 

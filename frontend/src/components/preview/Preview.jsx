@@ -1,18 +1,20 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function Preview({personalInfo,education}) {
+export default function Preview({resume}) {
 
   
-  console.log(education)
+  
+  
+console.log(resume)
    
   return (
     <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-8">
       {/* Header */}
       <div className="text-center border-b pb-4 mb-6">
-        <h1 className="text-3xl capitalize font-bold text-gray-800">{personalInfo.fullName}</h1>
-        <p className="text-gray-600 capitalize">{personalInfo.headline}</p>
-        <p className="text-sm text-gray-500 mt-2">📍 {personalInfo.location}| ✉️ {personalInfo.email}| 📞{personalInfo.phoneNumber} | 🔗{personalInfo.linkedIn} |🔗 {personalInfo.github}</p>
+        <h1 className="text-3xl capitalize font-bold text-gray-800">{resume?.personalInfo.fullName}</h1>
+        <p className="text-gray-600 capitalize">{resume?.personalInfo.headline}</p>
+        <p className="text-sm text-gray-500 mt-2">📍 {resume?.personalInfo.location}| ✉️ {resume?.personalInfo.email}| 📞{resume?.personalInfo.phoneNumber} | 🔗{resume?.personalInfo.linkedIn} |🔗 {resume?.personalInfo.github}</p>
       </div>
 
       {/* Summary */}
@@ -76,7 +78,7 @@ export default function Preview({personalInfo,education}) {
        <h2 className="text-xl font-semibold text-gray-700 border-b pb-1 mb-3">Education</h2>
       {
         
-        education.map((edu, index) => (
+        resume.education.map((edu, index) => (
           <div key={index} className="mb-6">
           <div className="mb-6">
        
