@@ -1,16 +1,20 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect, useRef } from 'react'
 import Container from '../components/Container'
-import {FilePlus2,CirclePlus,Menu} from "lucide-react"
+import {FilePlus2,CirclePlus,Menu,EllipsisVertical, LucideUtensilsCrossed} from "lucide-react"
 import Template_Selector from '../components/Template_Selector';
 import { api } from '../utils/ApiList';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
+import DeleteModal from "../components/modals/DeleteModal.jsx"
 import { changeLoadingState } from '../features/AuthSlice';
 function Home() {
   const navigate=useNavigate()
-
+  const [isDeleteModalOpen,setIsDeleteModalOpen]=useState(false);
+  const dropDownRef=useRef(null)
   const dispatch=useDispatch()
   const [resumes,setResumes]=useState([]);
+const [activeDropdownId, setActiveDropdownId] = useState(null);
+
 const [isTemplateMenuOpen,setIsTemplateMenuOpen]=useState(false);
 
 
@@ -43,6 +47,13 @@ useEffect(() => {
 const navigateEdit=(resumeId)=>{
   navigate(`/resume/${resumeId}/edit`)
 }
+const handleDropDown=(e,resumeId)=>{
+
+  e.stopPropagation();
+
+  setActiveDropdownId(prev=>(prev==resumeId ? null :resumeId))
+}
+
 
 
 
@@ -50,16 +61,16 @@ const navigateEdit=(resumeId)=>{
   <Container className='py-10 relative'>
 
 <Template_Selector isOpen={isTemplateMenuOpen} onClose={handleTemplateClose}/>
-
+<DeleteModal isOpen={isDeleteModalOpen} resumeId={activeDropdownId} onClose={()=>setIsDeleteModalOpen(false)}/>
     <div className='flex  md:justify-between gap-4'>
 
     <div>
       <h2 className='text-black font-bold'>My resumes</h2>
       <p className='text-gray-700 capitalize'>Start building your professional resumes</p>
     </div>
-   <div className='flex gap-2 '>
-   <button onClick={handleTemplateOpen} className='bg-gray-700  px-2 rounded-lg text-white  text-md font-semibold '>Templates</button>
-     <button  className='bg-blue-600 py-1 px-2  rounded-lg text-white text-md flex gap-2 items-center justify-center'> <FilePlus2 className='' /><p>Create new</p> </button>
+   <div className='p-1 '>
+
+     <button onClick={handleTemplateOpen} className='bg-blue-600  px-2 py-1.5  rounded-lg text-white text-md flex gap-2 items-center justify-center'> <FilePlus2 className='' /><p>Create </p> </button>
    </div>
     </div>
 
@@ -75,7 +86,8 @@ const navigateEdit=(resumeId)=>{
 
 
 
-      </div> :<div className='grid md:grid-cols-3 grid-cols-2 gap-2'>
+      </div> 
+      :<div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3  gap-4  md:gap-4'>
 
       <div onClick={handleTemplateOpen} className='py-10 px-6  border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center gap-2 flex-col bg-white/4 hover:bg-gray-200 hover:shadow-lg cursor-pointer transition-all duration-200'>
 
@@ -85,18 +97,47 @@ const navigateEdit=(resumeId)=>{
       <h2 className='text-black text-xl capitalize font-semibold'> New Resume</h2>
       </div> 
       {
-        resumes.map((resume)=>(
-          <div key={resume?._id} className='  relative  rounded-lg'  onClick={()=>{navigateEdit(resume?._id)}}>
+      resumes &&  resumes.map((resume)=>(
 
-          <div className='  border-b rounded-lg  border-gray-200 overflow-hidden '>
-          <img src="960.webp" alt="" />
+          
+          <div  key={resume?._id} className=' my-2 mx-2 relative  rounded-lg'  >
+
+          <div className=' max-h-100 border-b rounded-lg  border-gray-200 overflow-hidden ' onClick={()=>{navigateEdit(resume?._id)}}>
+          <img src={resume.currentThumbNail || resume.template.thumbnail} alt="" />
           </div>
           <div className='flex justify-between p-2 items-center'>
           <div className='  '>
-              <h2 className='font-semibold text-black text-lg '>{resume?.name || "new Resume"}</h2>
-              <p className='text-gray-700 text-lg '>Last updated {resume?.updatedAt || "28 sept 2025"}</p>
+              <h2 className='font-semibold text-black text-lg '>{resume?.resumeName || "new Resume"}</h2>
+              <p className='text-gray-700 text-lg '>Last updated {new Date(resume?.updatedAt).toLocaleDateString() || ""}</p>
        
           </div>
+      
+
+          <div  className="relative inline-block">
+            <button
+              onClick={(e)=>{handleDropDown(e,resume._id)}}
+              className="p-1 hover:bg-gray-100 rounded"
+            >
+              <EllipsisVertical />
+            </button>
+  <div
+    hidden={activeDropdownId!==resume._id}
+    className="z-50 absolute right-0 mt-2 w-36 bg-gray-200 rounded shadow-lg transition-all duration-200 ease-in-out"
+  >
+    <ul className="flex flex-col">
+      <button onClick={()=>navigateEdit(resume._id)} className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-300">
+        Edit
+      </button>
+      <button onClick={()=>setIsDeleteModalOpen(true)} className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-300">
+        delete
+      </button>
+     
+    </ul>
+  </div>
+</div>
+
+
+        
 
 
           </div>

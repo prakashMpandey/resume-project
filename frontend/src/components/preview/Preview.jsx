@@ -1,104 +1,57 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react'
+import RenderResume from '../RenderResume'
+import { useEffect,useRef } from 'react';
 
-export default function Preview({resume}) {
+import { X ,DownloadIcon} from 'lucide-react';
+function Preview({resumeData,templateComp,isOpen,onClose,handleDownload}) {
 
+
+   useEffect(() => {
+          if (isOpen) {
+            document.body.style.overflow = "hidden";
+          } else {
+            document.body.style.overflow = "auto";
+          }
+          return () => (document.body.style.overflow = "auto");
+        }, [isOpen]);
+
+        if(!isOpen)
+        {
+          return;
+        }
   
   
-  
-console.log(resume)
-   
+
+
   return (
-    <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-8">
-      {/* Header */}
-      <div className="text-center border-b pb-4 mb-6">
-        <h1 className="text-3xl capitalize font-bold text-gray-800">{resume?.personalInfo.fullName}</h1>
-        <p className="text-gray-600 capitalize">{resume?.personalInfo.headline}</p>
-        <p className="text-sm text-gray-500 mt-2">📍 {resume?.personalInfo.location}| ✉️ {resume?.personalInfo.email}| 📞{resume?.personalInfo.phoneNumber} | 🔗{resume?.personalInfo.linkedIn} |🔗 {resume?.personalInfo.github}</p>
-      </div>
+   <div className='fixed z-50   inset-0 bg-[rgba(0,0,0,0.50)] flex justify-center ' onClick={onClose}>
+      <div className='relative   bg-white shadow-lg w-full mt-5 overflow-auto rounded-lg md:w-[70%] md:max-w-5xl' onClick={(e)=>e.stopPropagation()}>
+   <div className='"absolute top-4 right-2'>
+    <div className='flex justify-end items-center gap-2 my-2'>
 
-      {/* Summary */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 border-b pb-1 mb-3">Summary</h2>
-        <p className="text-gray-600">
-          Passionate developer with hands-on experience in building web applications using React, Node.js, and Django.
-          Skilled in problem-solving, DSA, and deploying projects with Docker and AWS.
-        </p>
-      </div>
-
-      {/* Skills */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 border-b pb-1 mb-3">Skills</h2>
-        <div className="flex flex-wrap gap-2">
-          {[
-            "React.js",
-            "Node.js",
-            "Python",
-            "Django",
-            "PostgreSQL",
-            "Docker",
-            "AWS",
-            "DSA"
-          ].map((skill, index) => (
-            <span key={index} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
-              {skill}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Projects */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 border-b pb-1 mb-3">Projects</h2>
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800">Madhyam - Your Writing Platform</h3>
-            <p className="text-gray-600 text-sm">
-              A blogging and writing platform with authentication, profile system, and content publishing features. Built
-              with MERN stack.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800">School Photo Contest Portal</h3>
-            <p className="text-gray-600 text-sm">
-              Web application for hosting photo contests, collecting data, and displaying winners. Features admin panel
-              and OTP verification.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800">LawTech Project</h3>
-            <p className="text-gray-600 text-sm">
-              A legal domain platform aimed at making law resources accessible using AI/ML models and user-friendly UI.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Education */}
-       <h2 className="text-xl font-semibold text-gray-700 border-b pb-1 mb-3">Education</h2>
-      {
-        
-        resume.education.map((edu, index) => (
-          <div key={index} className="mb-6">
-          <div className="mb-6">
-       
-        <p className="text-gray-700 font-medium">{edu.degree}</p>
-        <p className="text-gray-600 text-sm">{edu.school},{edu.startDate}-{edu.endDate}</p>
-        <p></p>
-      </div>
-          </div>))
-      }
-
-      {/* Certifications */}
-      <div>
-        <h2 className="text-xl font-semibold text-gray-700 border-b pb-1 mb-3">Certifications</h2>
-        <ul className="list-disc list-inside text-gray-600">
-          <li>CS50’s Introduction to Computer Science (Harvard)</li>
-          <li>AWS Cloud Practitioner</li>
-          <li>Docker Essentials</li>
-        </ul>
-      </div>
+       <button 
+          className= " outine-gray-500 flex gap-2 text-lg shadow-sm shadow-gray-200 bg-white font-bold rounded-lg  items-center hover:text-gray-900 px-2 py-2.5 text-capitalize " 
+          onClick={handleDownload}
+        >
+          <DownloadIcon size={20} /> <p>Download</p>
+          </button>
+       <button 
+          className= " text-gray-600 hover:text-gray-900" 
+          onClick={onClose}
+        >
+          <X size={40} />
+        </button>
     </div>
-  );
+   </div>
+
+      <div className='' >
+          <RenderResume isPrint={true} templateComp={templateComp} resumeData={resumeData}/>
+        </div>
+        </div>
+
+      
+        </div>
+  )
 }
 
+export default Preview

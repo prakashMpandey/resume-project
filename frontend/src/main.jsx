@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { Provider } from 'react-redux'
-import store from './store/store.js'
+
 import {Toaster} from "react-hot-toast"
 import {Route,createBrowserRouter,createRoutesFromElements,RouterProvider, Navigate} from "react-router-dom"
 import LandingPage from './pages/LandingPage.jsx'
@@ -12,7 +12,8 @@ import Header from './components/partials/Header.jsx'
 import App from './App.jsx'
 import { useSelector } from 'react-redux'
 import ResumeCreationDashboard from './pages/ResumeCreationDashboard.jsx'
-
+import {PersistGate} from "redux-persist/integration/react"
+import {store,persistor} from "./store/store.js"
 
 const RedirectUser=({children})=>{
   const {isAuthenticated,user}=useSelector((state)=>state.auth)
@@ -36,9 +37,10 @@ const router=createBrowserRouter(
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
+    <PersistGate persistor={persistor} loading={null}>
     <Toaster position="top-center" reverseOrder={false} />
        <RouterProvider router={router}/>
+</PersistGate>
     </Provider>
-
   </StrictMode>
 )

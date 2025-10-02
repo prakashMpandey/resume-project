@@ -9,6 +9,7 @@ import SignUpForm from "./components/SignUpForm";
 import { useSelector, useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { checkAuth } from "./features/AuthSlice";
+import Loader from "./components/loader/Loader";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   const dispatch=useDispatch()
   const [isAuthModelVisible, setAuthModalVisible] = useState(false);
   const [authType, setAuthType] = useState("");
+  
 
   const openAuthModal = (type) => {
     setAuthType(type);
@@ -28,18 +30,24 @@ function App() {
 
 
 useEffect(() => {
-  dispatch(checkAuth());
+  
+  
+    dispatch(checkAuth());
+  
 }, [dispatch]);
 
 
 const { isCheckingAuth } = useSelector((state) => state.auth);
 
 if (isCheckingAuth) {
-  return <div>Checking authentication...</div>;
+  
+return <Loader/>
+
+  
 }
 
   return (
-    <div className="bg-gradient-to-b from-green-50 to-green-100 min-h-screen flex flex-col">
+    <div className="bg-gradient-to-b from-green-50 to-green-100 min-h-screen grid grid-cols-1 gap-1">
       <Header openAuthModal={openAuthModal} closeAuthModal={closeAuthModal} />
 
       <div
@@ -60,7 +68,7 @@ if (isCheckingAuth) {
       </div>
     
       {/* <ResumeCreationDashboard/> */}
-     <div className="flex-1">
+     <div className="h-[calc[100vh-60px]]">
        <Outlet/>
      </div>
       <Footer />

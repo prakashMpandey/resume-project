@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {GET_USER_API, SIGN_IN_API, SIGN_UP_API, LOG_OUT_API, api } from "../utils/ApiList";
+
 const initialState = {
   isAuthenticated: false,
   user: null,

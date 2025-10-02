@@ -8,6 +8,10 @@ const resumeSchema = new Schema({
     required: true,
     index: true,
   },
+  resumeName:{
+    type:String,
+    
+  },
   personalInfo: {
     fullName: { type: String, trim: true },
     headline: {
@@ -18,7 +22,7 @@ const resumeSchema = new Schema({
       type: String,
       trim: true,
     },
-    mobileNo: {
+    phoneNumber: {
       type: String,
     },
     location: {
@@ -36,14 +40,17 @@ const resumeSchema = new Schema({
     summary: {
       type: String,
     },
+    resumeImage:{
+      type:String
+    }
   },
   education: [
     {
       degree: { type: String, trim: true },
-      institution: { type: String, trim: true },
+      school: { type: String, trim: true },
       location: { type: String, trim: true },
-      startYear: { type: Number },
-      endYear: { type: Number },
+      startDate: { type: Date },
+      endDate: { type: Date },
       description: { type: String },
     },
   ],
@@ -51,8 +58,8 @@ const resumeSchema = new Schema({
     {
       title: { type: String, trim: true },
       employer: { type: String, trim: true },
-      startDate: { type: Number },
-      endDate: { type: Number },
+      startDate: { type: Date },
+      endDate: { type: Date },
       location: { type: String, trim: true },
       description: { type: String },
     },
@@ -61,34 +68,51 @@ const resumeSchema = new Schema({
     {
       skill: { type: String, trim: true },
       level: { type: String, trim: true },
-      description: { type: String },
     },
   ],
   projects: [
     {
       title: { type: String },
       subtitle: { type: String, trim: true },
-      startDate: { type: Number },
-      endDate: { type: Number },
+      startDate: { type: Date },
+      endDate: { type: Date },
       description: { type: String },
       link: { type: String, trim: true },
     },
   ],
-  certifications: [
+  certificates: [
     {
       certificate: { type: String, trim: true },
-      issuer: { type: String, trim: true, trim: true },
-      date: { type: Number, trim: true },
-      description: { type: String, trim: true },
+      issuer: { type: String, trim: true},
+      date: { type: Date,  },
       link: { type: String, trim: true },
     },
+  ],
+  achievements:[
+{
+  title:{
+    type:String
+  },
+  year:{
+    type:Date
+  },
+  issuer:{
+    type:String
+  },
+  link:{
+    type:String
+  }
+}
   ],
   template:{
     type:Schema.Types.ObjectId,
     ref:'Template',
     required:true,
 
+  },
+  currentThumbNail:{
+    type:String
   }
-});
+},{timestamps:true});
 
 export const Resume=model("Resume",resumeSchema);

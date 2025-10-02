@@ -13,7 +13,11 @@ const templateSchema=new Schema({
     },
     thumbnail:{
         type:String
-    }
+    },
+    sections:[{
+        type:String
+    }]
+
 })
 
 const Template=model('Template',templateSchema);

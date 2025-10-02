@@ -3,10 +3,16 @@ import {uploadOnCloudinary} from "../utils/cloudinary.utils.js"
 
 const addTemplate=async(req,res)=>{
   try {
-      const {name,category,componentName}=req.body;
-  
-      console.log(name,category,componentName)
-  
+
+      let {name,category,componentName,sections}=req.body;
+
+      if(typeof(sections) =="string")
+      {
+        sections=JSON.parse(sections)
+      }
+
+      console.log(sections,(typeof(sections)))
+     
       const thumbnailLocalPath=req.file?.path;
   
       if(!thumbnailLocalPath)
@@ -27,7 +33,8 @@ const addTemplate=async(req,res)=>{
           name,
           category,
           componentName,
-          thumbnail:thumbnailUrl.secure_url
+          thumbnail:thumbnailUrl.secure_url,
+          sections:[...sections]
       })
   
       return res.status(201).json({
